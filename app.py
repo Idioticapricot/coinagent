@@ -28,7 +28,8 @@ if __name__ == "__main__":
         receiver_address="A3CF2JITRAFHO3SLZ5CSY4AGRU6LBQNZODNRZDKTW5ON5VROFAYYJZA3VA",
         price_microalgos=1_000_000,
         agent_token="28419644f65d92acffbc663a46de10ae41caf8bafd58e686c6f5461ab4256b37",
-        remote_server_url="http://localhost:3000/api/agent/access"
+        remote_server_url="http://localhost:3000/api/agent/access",
+        app_id=749375301,
     )
 
     AgentServer(config=config, handler=handle_task).run()
