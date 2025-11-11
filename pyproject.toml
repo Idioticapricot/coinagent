@@ -6,7 +6,8 @@ requires-python = ">=3.12"
 dependencies = [
     "orca-agent-sdk",
     "agno",
-    "python-dotenv"
+    "python-dotenv",
+    "google-genai"
 ]
 
 [build-system]
