@@ -1,7 +1,11 @@
 import os
+from dotenv import load_dotenv
 from orca_agent_sdk import AgentConfig, AgentServer
 from agno.agent import Agent
 from agno.models.google import Gemini
+
+# Load environment variables
+load_dotenv()
 
 # Initialize Gemini agent
 agent = Agent(
