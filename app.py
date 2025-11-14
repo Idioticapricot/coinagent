@@ -25,11 +25,11 @@ def handle_task(job_input: str) -> str:
 if __name__ == "__main__":
     config = AgentConfig(
         agent_id="5bbf48cf-62a2-4ab3-bd96-1d29ba0fc1f3",
-        receiver_address="MRZY3GY6IUBWLF2Y3VFW4222N2MPLYHCI4B4Q3Q22OGP24IHVBNCVDQKF4",
+        receiver_address="2IEECJADZ3J55PFOHKFQBJAGMMMU2NARSQ3H2VXY2ECXFBKSZVP24GQSYY",
         price_microalgos=1_000_000,
-        agent_token="cb4aa7d6d7ae04b7b874d31e247315855cea778b6f6ccb08f99a78667c824edd",
+        agent_token="b8c8103f9fb07a46b21f1eaa278bc96cd973647ea844404a6e53ca61e88e611e",
         remote_server_url="http://localhost:3000/api/agent/access",
-        app_id=749661610,
+        app_id=749663128,
     )
 
     AgentServer(config=config, handler=handle_task).run()
