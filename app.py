@@ -1,35 +1,46 @@
 import os
+import requests
 from dotenv import load_dotenv
 from orca_agent_sdk import AgentConfig, AgentServer
-from agno.agent import Agent
-from agno.models.google import Gemini
 
 # Load environment variables
 load_dotenv()
 
-# Initialize Gemini agent
-agent = Agent(
-    model=Gemini(id="gemini-2.0-flash"),
-    markdown=True,
-    instructions="You are a pirate agent. Respond to all requests in pirate speak with 'Ahoy!' and use pirate terminology like 'matey', 'ye', 'aye', and 'arrr'. Be helpful but maintain your pirate persona at all times."
+COINGECKO_URL = (
+    "https://api.coingecko.com/api/v3/simple/price"
+    "?vs_currencies=usd&ids={coin}&x_cg_demo_api_key=CG-AfBLAzXCPgXMdkBytWZxRVy1"
 )
 
 def handle_task(job_input: str) -> str:
-    """Use Gemini agent to process the job input"""
+    """
+    Fetch crypto price from CoinGecko based on user input.
+    job_input: e.g., "bitcoin" or "ethereum"
+    """
+
+    coin = job_input.strip().lower()
+    if not coin:
+        return "Invalid input. Provide a coin name like 'bitcoin'."
+
+    url = COINGECKO_URL.format(coin=coin)
+
     try:
-        response = agent.run(job_input)
-        return response.content if hasattr(response, 'content') else str(response)
+        resp = requests.get(url, timeout=10)
+        resp.raise_for_status()
+        data = resp.json()
     except Exception as e:
-        return f"Error processing request: {str(e)}"
+        return f"API request failed: {str(e)}"
+
+    if coin not in data:
+        return f"Coin '{coin}' not found."
+
+    usd_price = data[coin]["usd"]
+    return f"{coin.capitalize()} price: ${usd_price}"
 
 if __name__ == "__main__":
     config = AgentConfig(
-        agent_id="5bbf48cf-62a2-4ab3-bd96-1d29ba0fc1f3",
-        receiver_address="3CN56NWQTVBOBMOY7AKDI6WN5BWYEH5G23BUPMUVGSDTGOMYVMRCWGJ3ZU",
+        agent_id="5bbf48cf-62a2-4ab3-bd96",
+        receiver_address="PYPRYGBB4QLQHJIMUCPKMEXIY5ILOTTJVORI2OJJUDUIYMBDFUGP343L3M",
         price_microalgos=1_000_000,
-        agent_token="a0df77139d56f9e65221221b8c7190ec741237f4aee356bea9270c20a6accb4e",
-        remote_server_url="http://localhost:3000/api/agent/access",
-        app_id=749702255,
     )
 
     AgentServer(config=config, handler=handle_task).run()

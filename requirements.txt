@@ -1,4 +1,3 @@
 orca-agent-sdk
 agno
 python-dotenv
-google-genai
