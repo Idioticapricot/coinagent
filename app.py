@@ -8,7 +8,7 @@ load_dotenv()
 
 COINGECKO_URL = (
     "https://api.coingecko.com/api/v3/simple/price"
-    "?vs_currencies=usd&ids={coin}&x_cg_demo_api_key=CG-AfBLAzXCPgXMdkBytWZxRVy1"
+    "?vs_currencies=usd&ids={coin}"
 )
 
 def handle_task(job_input: str) -> str:
