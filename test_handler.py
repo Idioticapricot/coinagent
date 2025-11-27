@@ -1,9 +1,7 @@
-import os
+#!/usr/bin/env python3
 import requests
 from dotenv import load_dotenv
-from orca_agent_sdk import AgentConfig, AgentServer
 
-# Load environment variables
 load_dotenv()
 
 COINGECKO_URL = (
@@ -16,7 +14,6 @@ def handle_task(job_input: str) -> str:
     Fetch crypto price from CoinGecko based on user input.
     job_input: e.g., "bitcoin" or "ethereum"
     """
-
     coin = job_input.strip().lower()
     if not coin:
         return "Invalid input. Provide a coin name like 'bitcoin'."
@@ -37,13 +34,11 @@ def handle_task(job_input: str) -> str:
     return f"{coin.capitalize()} price: ${usd_price}"
 
 if __name__ == "__main__":
-    config = AgentConfig(
-        agent_id="3c614b32-2605-43e5-aab4-b3b22dad3070",
-        receiver_address="PYPRYGBB4QLQHJIMUCPKMEXIY5ILOTTJVORI2OJJUDUIYMBDFUGP343L3M",
-        price_microalgos=1_000_000,
-        remote_server_url="http://localhost:3000/api/agent/access",
-        agent_token="cc0197edc66876c3033ddce5a64659617cf4f08851531fee0fc0651951f7e9ab",
-        app_id=750288264,
-    )
-
-    AgentServer(config=config, handler=handle_task).run()
+    # Test the handler directly
+    test_inputs = ["bitcoin", "ethereum", "cardano", "invalid_coin"]
+    
+    for test_input in test_inputs:
+        print(f"Testing: {test_input}")
+        result = handle_task(test_input)
+        print(f"Result: {result}")
+        print("-" * 50)

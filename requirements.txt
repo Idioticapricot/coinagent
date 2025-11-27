@@ -1,3 +1,4 @@
 orca-agent-sdk
 agno
 python-dotenv
+requests

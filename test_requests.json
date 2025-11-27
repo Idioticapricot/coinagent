@@ -1,0 +1,28 @@
+{
+  "start_job_request": {
+    "method": "POST",
+    "url": "http://localhost:8000/start_job",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "sender_address": "SENDER_ALGO_ADDRESS_HERE",
+      "job_input": "bitcoin"
+    }
+  },
+  "submit_payment_request": {
+    "method": "POST", 
+    "url": "http://localhost:8000/submit_payment",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "job_id": "J1762754481290",
+      "txid": ["REAL_TXID_1", "REAL_TXID_2"]
+    }
+  },
+  "get_job_result": {
+    "method": "GET",
+    "url": "http://localhost:8000/job/J1762754481290?access_token=ACCESS_TOKEN_VALUE"
+  }
+}
